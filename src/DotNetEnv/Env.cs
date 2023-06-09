@@ -34,8 +34,8 @@ namespace DotNetEnv
                 if (!File.Exists(path)) path = null;
             }
             else
-            {
-                while (!File.Exists(path))
+            {                
+                for (int count = 0; !File.Exists(path) && count < options.MaxTraverseDepth, count++)
                 {
                     var parent = Directory.GetParent(dir);
                     if (parent == null)

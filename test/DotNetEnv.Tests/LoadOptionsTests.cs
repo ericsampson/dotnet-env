@@ -24,6 +24,18 @@ namespace DotNetEnv.Tests
             Assert.True(options.SetEnvVars);
             Assert.True(options.ClobberExistingVars);
             Assert.False(options.OnlyExactPath);
+
+            options = DotNetEnv.Env.WithMaxTraverseDepth();
+            Assert.True(options.SetEnvVars);
+            Assert.True(options.ClobberExistingVars);
+            Assert.False(options.OnlyExactPath);
+            Assert.Equal(MaxTraverseDepthDefault, options.MaxTraverseDepth);
+
+            options = DotNetEnv.Env.WithMaxTraverseDepth(999);
+            Assert.True(options.SetEnvVars);
+            Assert.True(options.ClobberExistingVars);
+            Assert.False(options.OnlyExactPath);
+            Assert.Equal(999, options.MaxTraverseDepth);
         }
 
         [Fact]
@@ -45,6 +57,12 @@ namespace DotNetEnv.Tests
             Assert.True(options.SetEnvVars);
             Assert.True(options.ClobberExistingVars);
             Assert.False(options.OnlyExactPath);
+
+            options = DotNetEnv.LoadOptions.WithMaxTraverseDepth(999);
+            Assert.True(options.SetEnvVars);
+            Assert.True(options.ClobberExistingVars);
+            Assert.False(options.OnlyExactPath);
+            Assert.Equal(999, options.MaxTraverseDepth);
         }
 
         [Fact]
@@ -71,6 +89,12 @@ namespace DotNetEnv.Tests
             Assert.True(options.SetEnvVars);
             Assert.True(options.ClobberExistingVars);
             Assert.False(options.OnlyExactPath);
+
+            options = new DotNetEnv.LoadOptions.WithMaxTraverseDepth(999);
+            Assert.True(options.SetEnvVars);
+            Assert.True(options.ClobberExistingVars);
+            Assert.False(options.OnlyExactPath);
+            Assert.Equal(999, options.MaxTraverseDepth);
         }
 
         [Fact]
@@ -97,6 +121,12 @@ namespace DotNetEnv.Tests
             Assert.False(options.SetEnvVars);
             Assert.True(options.ClobberExistingVars);
             Assert.False(options.OnlyExactPath);
+
+            options = DotNetEnv.Env.NoEnvVars().NoClobber().TraversePath().WithMaxTraverseDepth(999);
+            Assert.False(options.SetEnvVars);
+            Assert.False(options.ClobberExistingVars);
+            Assert.False(options.OnlyExactPath);
+            Assert.Equal(999, options.MaxTraverseDepth);
         }
     }
 }
